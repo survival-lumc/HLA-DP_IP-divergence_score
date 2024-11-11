@@ -14,29 +14,41 @@ venn_diagram = function(Venn_Data, Pat1, Pat2, Don1, Don2){
   don1 = paste("DP", paste(unlist(strsplit(Don1, ":")), collapse = ""), sep = ""); don2 = paste("DP", paste(unlist(strsplit(Don2, ":")), collapse = ""), sep = "")
   
   don_pat = list(Venn_Data[, don1], Venn_Data[, don2], Venn_Data[, pat1], Venn_Data[, pat2]); names(don_pat) = c(Don1, Don2, Pat1, Pat2)
+  don_pat = lapply(don_pat, function(x){x[!is.na(x)]})
+  
   A = Venn(don_pat); B = process_data(A, shape_id = "401f")
 
-  venn_numbers = venn_regionlabel(B); venn_numbers[15, "count"] = venn_numbers[15, "count"] - 1
   
+  colors <- c("1" = "#FF3333", "2" = "#FF3333", "3" = "#FFFF00", "4" = "#FFFF00", "1/2" = "#FF3333", "1/3" = "#0099CC", "1/4" = "#0099CC", "2/3" = "#0099CC",
+              "2/4" = "#0099CC", "3/4" = "#FFFF00", "1/2/3" = "#0099CC", "1/2/4" = "#0099CC", "1/3/4" = "#0099CC", "2/3/4" = "#0099CC", "1/2/3/4" = "#0099CC")
   
-  colors <- c("1" = "#7570B3", "2" = "#7570B3", "3" = "#D95F02", "4" = "#D95F02", "1/2" = "#7570B3", "1/3" = "#1B9E77", "1/4" = "#1B9E77", "2/3" = "#1B9E77",
-              "2/4" = "#1B9E77", "3/4" = "#D95F02", "1/2/3" = "#1B9E77", "1/2/4" = "#1B9E77", "1/3/4" = "#1B9E77", "2/3/4" = "#1B9E77", "1/2/3/4" = "#1B9E77")
+  legend_colors <- c("Donor-specific peptides" = "#FFFF00", "Patient-specific peptides" = "#FF3333", "Shared peptides" = "#0099CC")
+  legend_data <- data.frame(legend_id = names(legend_colors), x = c(0.5, 0.5, 0.5), y = c(0.5, 0.5, 0.5))
   
   
   p = ggplot() + 
+    # This is just to get a legend, other layers override the points
+    geom_point(data = legend_data, aes(x, y, fill = legend_id), shape = 22, size = 5, show.legend = TRUE) +
+    
     geom_polygon(aes(X, Y, fill = id, group = id), data = venn_regionedge(B), show.legend = FALSE) + 
     
     geom_path(aes(X, Y, color = id, group = id), data = venn_setedge(B), show.legend = FALSE, linewidth = 1, color = "black") +  
-    geom_text(aes(X, Y, label = name), data = venn_setlabel(B)) +
-    geom_label(aes(X, Y, label = count), data = venn_numbers) +
+    geom_text(aes(X, Y, label = paste0(name, " (", str_replace_all(count, pattern = "(\\d{3}$)", replacement = paste0(",", unlist(str_extract_all(count, "(\\d{3}$)")))), ")")), data = venn_setlabel(B)) +
+    geom_label(aes(X, Y, label = count), data = venn_regionlabel(B)) +
     
-    scale_fill_manual(values = colors) + 
+    scale_fill_manual(values = c(colors, legend_colors), 
+                      breaks = names(legend_colors), 
+                      labels = names(legend_colors),
+                      guide = guide_legend(title = "", override.aes = list(shape = 22, size = 5))) +
+    
     coord_equal() +
     
     annotate("text", label = "Donor", x = 0.125, y = 0.85, size = 5, fontface = 2) +
     annotate("text", label = "Patient", x = 0.875, y = 0.85, size = 5, fontface = 2) +
     
-    theme_void()
+    theme_void() +
+    theme(legend.position = "bottom",
+          legend.text = element_text(size = 12))
   
   return(p)
 }
