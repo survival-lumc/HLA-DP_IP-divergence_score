@@ -53,20 +53,20 @@ long_ratio = peptide_data_ratio |>
 
 mismatches = long_count |> 
   dplyr::full_join(long_ratio, by = c("Donor", "Patient")) |> 
-  dplyr::relocate(Patient)
+  dplyr::relocate(Patient) |> 
+  dplyr::mutate(Count = as.integer(Count))
 ```
 
 
 ## Venn diagram
 ```{r}
-Pat1 = "01:01"; Pat2 = "02:01"
-Don1 = "03:01"; Don2 = "04:01"
+Pat1 = "03:01"; Pat2 = "04:01"
+Don1 = "01:01"; Don2 = "02:01"
 
 
-score_table(mismatches, Pat1, Pat2, Don1, Don2)
-venn_diagram(Venn_Data, Pat1 = Pat1, Pat2 = Pat2, Don1 = Don1, Don2 = Don2)
+score_table(mismatches = mismatches, Pat1 = Pat1, Pat2 = Pat2, Don1 = Don1, Don2 = Don2)
+venn_diagram(Venn_Data = Venn_Data, Pat1 = Pat1, Pat2 = Pat2, Don1 = Don1, Don2 = Don2)
 ```
-
 
 
 
