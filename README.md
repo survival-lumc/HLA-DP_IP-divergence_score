@@ -3,7 +3,7 @@ R code repository for the HLA-DPB1 immunopeptidome mismatch score described in t
 
 
 # Usage
-There is an interactive shiny application of the HLA-DPB1 mismatch tool online which can be used: https://lljvdburg.shinyapps.io/myapp/
+There is an interactive shiny application of the HLA-DPB1 mismatch tool online which can be used: https://lljvdburg.shinyapps.io/HLA-DP_Mismatch_scores/
 
 It is also possible to run the tool locally on your own laptop. If you are a git user, you can clone the repository by
 
