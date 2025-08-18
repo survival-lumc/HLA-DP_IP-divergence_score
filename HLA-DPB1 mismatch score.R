@@ -100,12 +100,12 @@ score_table = function(mismatches, Pat1, Pat2, Don1, Don2){
 # Define UI for dataset viewer app ----
 ui <- fluidPage(theme = shinytheme("readable"),
   
-  titlePanel("HLA-DPB1 immunopeptidome mismatch score"),
+  titlePanel("HLA-DP IP-divergence scores"),
   
-  helpText('The immunepeptidomes (IPs) were measured for K562 cell lines transduced with 15 distinct HLA-DP allotypes, with the data publicly available in the PRIDE partner repository under dataset identifier PXD030591. 
-           HLA-DPB1 immunopeptidome mismatch scores were derived based on the difference between the IPs of patient and donor-specific allotype. 
-           The "count score" ranges from 0-8520) and represents the total number of peptides specific to the patient, while the "ratio score" ranges from 0-1 and is calculated as the proportion of patient-specific peptides relative to the entire patient-derived peptide repertoire, thereby accounting for the heterozygosity of the patient. 
-           Thereby, the HLA-DPB1 immunopeptidome mismatch scores quantify the degree of HLA-DPB1 mismatch between patient and donor in the graft-versus-host direction.'),
+  helpText('The immunopeptidomes (IPs) were measured for K562 cell lines transduced with 15 distinct HLA-DP allotypes, with the data publicly available in the PRIDE partner repository under dataset identifier PXD030591. 
+           HLA-DP IP-divergence scores were derived based on the difference between the IPs of patient and donor-specific allotype. 
+           The "count score" ranges from 0-8520 and represents the total number of peptides specific to the patient, while the "ratio score" ranges from 0-1 and is calculated as the proportion of patient-specific peptides relative to the entire patient-derived peptide repertoire, thereby accounting for the heterozygosity of the patient. 
+           Thereby, the HLA-DP IP-divergence scores quantify the magnitude of the immunogenicity of a HLA-DPB1 mismatch between patient and donor in the graft-versus-host direction.'),
   
   sidebarLayout(
     

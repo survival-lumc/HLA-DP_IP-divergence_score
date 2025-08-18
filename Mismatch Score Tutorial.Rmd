@@ -18,7 +18,7 @@ source("Functions/score_table.R")
 source("Functions/Venn_diagram.R")
 
 
-load("Data/Example_Data.Rdata")
+load("Data/Example_Data.RData")
 load("Data/Peptide_data_count.Rdata")
 load("Data/Peptide_data_ratio.Rdata")
 load("Data/Venn_Data.Rdata")

@@ -1,13 +1,13 @@
 # HLA-DPB1 immunopeptidome mismatch score
-R code repository for the HLA-DPB1 immunopeptidome mismatch score described in the manuscript ...
+R code repository for the HLA-DP immunopeptidome divergence scores described in the manuscript ...
 
 
 # Usage
-There is an interactive shiny application of the HLA-DPB1 mismatch tool online which can be used: https://jgkvanderhem.shinyapps.io/HLA-DPB1_immunopeptidome_mismatch_scores/
+There is an interactive shiny application of the HLA-DPB1 mismatch tool online which can be used: https://jgkvanderhem.shinyapps.io/HLA-DP_IP-divergence_scores/
 
 It is also possible to run the tool locally on your own laptop. If you are a git user, you can clone the repository by
 
-`git clone https://github.com/survival-lumc/HLA-DP_Mismatch_scores.git`
+`git clone https://github.com/survival-lumc/HLA-DP_IP-divergence_score.git`
 
 Otherwise, you can simply download a zip file containing the directory by clicking Code -> Download ZIP at the top-right of this Github page. Extract the zipped files to a directory of your choice.
 
