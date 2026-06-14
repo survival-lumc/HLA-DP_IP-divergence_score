@@ -6,14 +6,25 @@
 #' @param Don1 string. An allele of the donor
 #' @param Don2 string. Second allele of the donor
 #' 
+#' @import ggVennDiagram
 #' 
 #' @author Lars van der Burg
-venn_diagram = function(Venn_Data, Pat1, Pat2, Don1, Don2){
+venn_diagram = function(sequence_data, Pat1, Pat2, Don1, Don2){
   
-  pat1 = paste("DP", paste(unlist(strsplit(as.character(Pat1), ":")), collapse = ""), sep = ""); pat2 = paste("DP", paste(unlist(strsplit(Pat2, ":")), collapse = ""), sep = "")
-  don1 = paste("DP", paste(unlist(strsplit(Don1, ":")), collapse = ""), sep = ""); don2 = paste("DP", paste(unlist(strsplit(Don2, ":")), collapse = ""), sep = "")
+  if(FALSE %in% (c("Sequence", Pat1, Pat2, Don1, Don2) %in% colnames(sequence_data))){
+    stop(glue("Please make sure that the columns Sequence, {Pat1}, {Pat2}, {Don1} and {Don2} are present in the sequence_data"))
+  }
   
-  don_pat = list(Venn_Data[, don1], Venn_Data[, don2], Venn_Data[, pat1], Venn_Data[, pat2]); names(don_pat) = c(Don1, Don2, Pat1, Pat2)
+  
+  Venn_data = sequence_data |> 
+    mutate(Pat1 = ifelse(!!sym(Pat1) != 0, Sequence, NA),
+           Pat2 = ifelse(!!sym(Pat2) != 0, Sequence, NA),
+           Don1 = ifelse(!!sym(Don1) != 0, Sequence, NA),
+           Don2 = ifelse(!!sym(Don2) != 0, Sequence, NA)) |> 
+  select(Sequence, Pat1, Pat2, Don1, Don2)
+    
+  
+  don_pat = list(Venn_data[["Don1"]], Venn_data[["Don2"]], Venn_data[["Pat1"]], Venn_data[["Pat2"]]); names(don_pat) = c(Don1, Don2, Pat1, Pat2)
   don_pat = lapply(don_pat, function(x){x[!is.na(x)]})
   
   A = Venn(don_pat); B = process_data(A, shape_id = "401f")
@@ -42,7 +53,7 @@ venn_diagram = function(Venn_Data, Pat1, Pat2, Don1, Don2){
                       guide = guide_legend(title = "", override.aes = list(shape = 22, size = 5))) +
     
     coord_equal() +
-    
+
     annotate("text", label = "Donor", x = 0.125, y = 0.85, size = 5, fontface = 2) +
     annotate("text", label = "Patient", x = 0.875, y = 0.85, size = 5, fontface = 2) +
     

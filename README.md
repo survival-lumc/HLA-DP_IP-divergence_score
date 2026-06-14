@@ -1,9 +1,9 @@
-# HLA-DPB1 immunopeptidome mismatch score
-R code repository for the HLA-DP immunopeptidome divergence scores described in the manuscript ...
+# HLA-DPB1 immunopeptidome divergence score
+R code repository for the HLA-DP immunopeptidome (IP-)divergence scores described in the manuscript ...
 
 
 # Usage
-There is an interactive shiny application of the HLA-DPB1 mismatch tool online which can be used: https://jgkvanderhem.shinyapps.io/HLA-DP_IP-divergence_scores/
+There is an interactive shiny application of the HLA-DPB1 IP-divergence score tool online which can be used: https://jgkvanderhem.shinyapps.io/HLA-DP_IP-divergence_scores/
 
 It is also possible to run the tool locally on your own laptop. If you are a git user, you can clone the repository by
 
@@ -11,13 +11,14 @@ It is also possible to run the tool locally on your own laptop. If you are a git
 
 Otherwise, you can simply download a zip file containing the directory by clicking Code -> Download ZIP at the top-right of this Github page. Extract the zipped files to a directory of your choice.
 
-Afterwards, you can double-click the HLA-DP_Mismatch_scores.Rproj file to open an Rstudio session in the directory you have just downloaded. This will ensure all file-paths called in the files are maintained. The minimal script and the .Rmd files can now be executed.
+Afterwards, you can double-click the HLA-DP_IP-divergence_score.Rproj file to open an Rstudio session in the directory you have just downloaded. This will ensure all file-paths called in the files are maintained. The minimal script and the .Rmd files can now be executed.
 
 
 # Contains
 The repository contains the following:
-* HLA-DPB1 mismatch score.R: script to run the interactive shiny application locally
-* Mismatch Score tutorial.Rmd: a simple tutorial showing how to obtain the mismatch scores and Venn diagram for a specific patient-donor combinations. By adjusting the specific alleles the patient or donor has, the different scores can be obtained
-* Peptide_data_count.Rdata and Peptide_data_ratio.Rdata: datafile containing the HLA-DPB1 immunopeptidome count and ratio mismatch scores for all measured patient-donor combinations
-* Venn_data.Rdata: the different peptides that are measured for every HLA-DPB1 allele. Every row is a unique peptide which is measured for the allele if it is not NA.
-* Additional code and an example dataset used to calculate create the scores, make the Venn diagram or allow for more insights in the data.  
+* HLA-DPB1 IP-divergence score_tutorial.Rmd: script that shows how the data looks like, how the IP-divergence scores are calculated and what a Patient-Specific  to run the interactive shiny application locally. 
+** sequence_data.RData: sequence_data as described in the manuscript ...
+** IP_divergence_score.R: function that creates the IP-divergence scores based on the sequence data
+** Venn_diagram.R: function that creates the Venn diagram for a chosen Patient-Donor combination
+
+* HLA-DPB1 IP-divergence score_local App.R: script to create the HLA-DPB1 IP-divergence tool locally.

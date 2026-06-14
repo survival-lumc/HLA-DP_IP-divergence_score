@@ -1,0 +1,80 @@
+---
+title: "HLA-DPB1 IP-divergence score Tutorial"
+author: "Lars van der Burg & Joost van der Hem"
+date: "2026-06-14"
+output: html_document
+---
+
+
+# Initializations
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(echo = TRUE)
+
+
+
+## Load required packages
+suppressPackageStartupMessages({
+  library(tidyverse)
+  library(ggVennDiagram)
+})
+
+
+
+## Function to create the IP divergence scores based on the sequence data
+source("Functions/IP_divergence_score.R")
+
+## Function to filter the scores of a specific Patient-Donor combination
+source("Functions/score_table.R")
+
+## Function to create a Venn diagram based on the sequence data for a specific Patient-Donor combination
+source("Functions/Venn_diagram.R")
+
+
+## Read-in the sequence data
+load("Data/sequence_data.RData")
+
+
+
+```
+
+
+# Data
+The sequence data has to be in a specific format:
+- Column "Sequence": containing all the specific peptides
+- Columns per allele: indicating whether the specific peptide is measured for the allele
+
+```{r data}
+
+sequence_data |> as_tibble()
+
+```
+
+# IP-divergence scores
+```{r IP-divergence}
+
+## Calculates all required output
+IP_output = IP_divergence_score(sequence_data = sequence_data)
+
+
+## The specific scores for every Patient-Donor combination
+IP_scores = IP_output$IP_scores
+
+```
+
+# Output
+```{r output, fig.width = 8, fig.height = 6}
+
+## When choosing a different Patient or Donor, the output will also differ
+Pat1 = "03:01"; Pat2 = "04:01"
+Don1 = "01:01"; Don2 = "02:01"
+
+
+
+## The count and ratio IP-divergence scores for the specific Patient-Donor combination
+score_table(IP_scores = IP_scores, Pat1 = Pat1, Pat2 = Pat2, Don1 = Don1, Don2 = Don2)
+
+## Venn diagram of the specific Patient-Donor combination
+venn_diagram(sequence_data = sequence_data, Pat1 = Pat1, Pat2 = Pat2, Don1 = Don1, Don2 = Don2)
+
+```
