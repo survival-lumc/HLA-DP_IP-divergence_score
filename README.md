@@ -17,8 +17,7 @@ Afterwards, you can double-click the HLA-DP_IP-divergence_score.Rproj file to op
 # Contains
 The repository contains the following:
 * HLA-DPB1 IP-divergence score_tutorial.Rmd: script that shows how the data looks like, how the IP-divergence scores are calculated and what a Patient-Specific  to run the interactive shiny application locally. 
-** sequence_data.RData: sequence_data as described in the manuscript ...
-** IP_divergence_score.R: function that creates the IP-divergence scores based on the sequence data
-** Venn_diagram.R: function that creates the Venn diagram for a chosen Patient-Donor combination
-
+  * sequence_data.RData: sequence_data as described in the manuscript ...
+  * IP_divergence_score.R: function that creates the IP-divergence scores based on the sequence data
+  * Venn_diagram.R: function that creates the Venn diagram for a chosen Patient-Donor combination
 * HLA-DPB1 IP-divergence score_local App.R: script to create the HLA-DPB1 IP-divergence tool locally.
